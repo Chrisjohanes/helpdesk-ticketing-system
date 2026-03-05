@@ -40,3 +40,14 @@ php artisan migrate --seed
 Start server
 
 php artisan serve
+
+## Screenshots
+
+### Dashboard
+![Dashboard](screenshots/dashboard.png)
+
+### Ticket List
+![Ticket List](screenshots/ticket_list.png)
+
+### Create Ticket
+![Create Ticket](screenshots/create_ticket.png)
