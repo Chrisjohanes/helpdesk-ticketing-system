@@ -1,82 +1,42 @@
-\# Helpdesk Ticketing System
+# Helpdesk Ticketing System
 
+Technical Test - IT Developer
 
+## Tech Stack
+- Laravel
+- MySQL
+- Blade
+- Bootstrap
 
-Technical test project using Laravel.
+## Features
+- Create ticket
+- Ticket status workflow
+- Ticket logs
+- Dashboard
+- Ticket filtering
 
+## Setup
 
+Clone repository
 
-\## Features
+git clone https://github.com/Chrisjohanes/helpdesk-ticketing-system.git
 
-\- Create ticket
-
-\- Ticket status workflow (Open → On Progress → Resolved → Closed)
-
-\- Ticket logs history
-
-\- Filter tickets
-
-\- Pagination
-
-\- Role restriction (IT Support only)
-
-
-
-\## Tech Stack
-
-\- Laravel
-
-\- MySQL
-
-\- Bootstrap
-
-
-
-\## Setup
-
-
-
-1\. Clone repository
-
-2\. Install dependency
-
-
+Install dependency
 
 composer install
 
-
-
-3\. Copy env
-
-
+Copy env
 
 cp .env.example .env
 
-
-
-4\. Generate key
-
-
+Generate key
 
 php artisan key:generate
 
-
-
-5\. Setup database in .env
-
-
-
-6\. Run migration
-
-
+Run migration
 
 php artisan migrate --seed
 
-
-
-7\. Run server
-
-
+Start server
 
 php artisan serve
-
