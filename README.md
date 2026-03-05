@@ -1,46 +1,42 @@
 # Helpdesk Ticketing System
 
-A simple helpdesk ticketing system built with Laravel to manage customer support requests.
-
-## Features
-- User authentication
-- Create support tickets
-- Ticket status tracking
-- Admin ticket management
-- Dashboard for support team
+Technical Test - IT Developer
 
 ## Tech Stack
 - Laravel
 - MySQL
+- Blade
 - Bootstrap
-- PHP
 
-## Installation
+## Features
+- Create ticket
+- Ticket status workflow
+- Ticket logs
+- Dashboard
+- Ticket filtering
 
-1. Clone repository
+## Setup
+
+Clone repository
 
 git clone https://github.com/Chrisjohanes/helpdesk-ticketing-system.git
 
-2. Install dependencies
+Install dependency
 
 composer install
 
-3. Copy environment file
+Copy env
 
 cp .env.example .env
 
-4. Generate application key
+Generate key
 
 php artisan key:generate
 
-5. Setup database
+Run migration
 
-php artisan migrate
+php artisan migrate --seed
 
-6. Run server
+Start server
 
 php artisan serve
-
-## Author
-
-Christian Johanes
