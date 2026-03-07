@@ -1,58 +1,45 @@
-@extends('layouts.app')
+<x-app-layout>
 
-@section('content')
+<div class="py-6">
+<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-<div class="row">
+<h2 class="text-2xl font-bold mb-6">IT Support Dashboard</h2>
 
-    <div class="col-md-3 mb-3">
-        <div class="card text-white bg-dark">
-            <div class="card-body">
-                <h5>Total Tickets</h5>
-                <h3>{{ $total }}</h3>
-            </div>
-        </div>
-    </div>
+<div class="grid grid-cols-1 md:grid-cols-5 gap-6">
 
-    <div class="col-md-3 mb-3">
-        <div class="card text-dark bg-warning">
-            <div class="card-body">
-                <h5>Open</h5>
-                <h3>{{ $open }}</h3>
-            </div>
-        </div>
-    </div>
+<!-- Total Ticket -->
+<div class="bg-white shadow rounded-lg p-6">
+<h3 class="text-gray-500">Total Tickets</h3>
+<p class="text-3xl font-bold">{{ $total }}</p>
+</div>
 
-    <div class="col-md-3 mb-3">
-        <div class="card text-white bg-primary">
-            <div class="card-body">
-                <h5>On Progress</h5>
-                <h3>{{ $progress }}</h3>
-            </div>
-        </div>
-    </div>
+<!-- Open -->
+<div class="bg-red-100 shadow rounded-lg p-6">
+<h3 class="text-red-600">Open</h3>
+<p class="text-3xl font-bold">{{ $open }}</p>
+</div>
 
-    <div class="col-md-3 mb-3">
-        <div class="card text-white bg-success">
-            <div class="card-body">
-                <h5>Resolved</h5>
-                <h3>{{ $resolved }}</h3>
-            </div>
-        </div>
-    </div>
+<!-- Progress -->
+<div class="bg-yellow-100 shadow rounded-lg p-6">
+<h3 class="text-yellow-600">On Progress</h3>
+<p class="text-3xl font-bold">{{ $progress }}</p>
+</div>
 
-    <div class="col-md-3 mb-3">
-        <div class="card text-white bg-secondary">
-            <div class="card-body">
-                <h5>Closed</h5>
-                <h3>{{ $closed }}</h3>
-            </div>
-        </div>
-    </div>
+<!-- Resolved -->
+<div class="bg-green-100 shadow rounded-lg p-6">
+<h3 class="text-green-600">Resolved</h3>
+<p class="text-3xl font-bold">{{ $resolved }}</p>
+</div>
+
+<!-- Closed -->
+<div class="bg-blue-100 shadow rounded-lg p-6">
+<h3 class="text-blue-600">Closed</h3>
+<p class="text-3xl font-bold">{{ $closed }}</p>
+</div>
 
 </div>
 
-<a href="/tickets" class="btn btn-outline-primary mt-3">
-    View All Tickets
-</a>
+</div>
+</div>
 
-@endsection
+</x-app-layout>

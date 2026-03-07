@@ -25,8 +25,8 @@ class TicketLog extends Model
         return $this->belongsTo(Ticket::class);
     }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+   public function user()
+{
+    return $this->belongsTo(\App\Models\User::class);
+}
 }

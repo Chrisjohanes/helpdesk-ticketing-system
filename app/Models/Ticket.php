@@ -14,13 +14,14 @@ class Ticket extends Model
     use HasFactory;
 
     protected $fillable = [
-        'ticket_no',
-        'user_id',
-        'category_id',
-        'title',
-        'description',
-        'status'
-    ];
+    'ticket_no',
+    'title',
+    'description',
+    'category_id',
+    'user_id',
+    'status',
+    'priority'
+];
 
     public function user()
     {
@@ -33,7 +34,7 @@ class Ticket extends Model
     }
 
     public function logs()
-    {
-        return $this->hasMany(TicketLog::class);
-    }
+{
+    return $this->hasMany(\App\Models\TicketLog::class);
+}
 }

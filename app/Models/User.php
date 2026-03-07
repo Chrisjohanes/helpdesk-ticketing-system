@@ -21,10 +21,11 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    'name',
+    'email',
+    'password',
+    'role'
+];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -44,6 +45,11 @@ public function tickets()
 public function ticketLogs()
 {
     return $this->hasMany(TicketLog::class);
+}
+
+public function isSupport()
+{
+    return strtolower($this->role) === 'it_support';
 }
 
     /**

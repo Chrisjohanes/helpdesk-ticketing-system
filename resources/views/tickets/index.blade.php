@@ -1,121 +1,191 @@
-@extends('layouts.app')
+<x-app-layout>
 
-@section('content')
+<x-slot name="header">
+<h2 class="font-semibold text-xl text-gray-800 leading-tight">
+Ticket List
+</h2>
+</x-slot>
 
-<div class="card mb-4">
-    <div class="card-header">
-        Filter Ticket
-    </div>
-    <div class="card-body">
+<div class="py-6">
+<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-        <form method="GET" action="/tickets" class="row g-3">
+<div class="bg-white shadow-md rounded-lg p-6">
 
-            <div class="col-md-3">
-                <select name="status" class="form-select">
-                    <option value="">All Status</option>
-                    <option value="Open">Open</option>
-                    <option value="On Progress">On Progress</option>
-                    <option value="Resolved">Resolved</option>
-                    <option value="Closed">Closed</option>
-                </select>
-            </div>
+<!-- FILTER -->
+<form method="GET" class="grid md:grid-cols-4 gap-4 mb-6">
+<div>
+<label class="text-sm font-medium text-gray-700">Status</label>
+<select name="status" class="w-full border-gray-300 rounded-md shadow-sm">
 
-            <div class="col-md-3">
-                <select name="category_id" class="form-select">
-                    <option value="">All Category</option>
-                    @foreach($categories as $category)
-                        <option value="{{ $category->id }}">
-                            {{ $category->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
+<option value="">All</option>
+<option value="Open" {{ request('status') == 'Open' ? 'selected' : '' }}>Open</option>
+<option value="On Progress" {{ request('status') == 'On Progress' ? 'selected' : '' }}>On Progress</option>
+<option value="Resolved" {{ request('status') == 'Resolved' ? 'selected' : '' }}>Resolved</option>
+<option value="Closed" {{ request('status') == 'Closed' ? 'selected' : '' }}>Closed</option>
 
-            <div class="col-md-3">
-                <input type="date" name="date" class="form-control">
-            </div>
-
-            <div class="col-md-3">
-                <button type="submit" class="btn btn-secondary w-100">
-                    Filter
-                </button>
-            </div>
-
-        </form>
-
-    </div>
+</select>
 </div>
 
-<div class="card">
-    <div class="card-header">
-        Ticket List
-    </div>
-    <div class="card-body">
+<div>
+<label class="text-sm font-medium text-gray-700">Category</label>
+<select name="category_id" class="w-full border-gray-300 rounded-md shadow-sm">
 
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Ticket No</th>
-                    <th>User</th>
-                    <th>Category</th>
-                    <th>Status</th>
-                    <th>Created At</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($tickets as $ticket)
-                <tr>
-                    <td>{{ $ticket->ticket_no }}</td>
-                    <td>{{ $ticket->user->name }}</td>
-                    <td>{{ $ticket->category->name }}</td>
-                    <td>
-                        <span class="badge 
-                            @if($ticket->status == 'Open') bg-warning
-                            @elseif($ticket->status == 'On Progress') bg-primary
-                            @elseif($ticket->status == 'Resolved') bg-success
-                            @elseif($ticket->status == 'Closed') bg-dark
-                            @endif">
-                            {{ $ticket->status }}
-                        </span>
-                    </td>
-                    <td>{{ $ticket->created_at }}</td>
-                    <td>
-                        @if($ticket->status != 'Closed')
-                        <form method="POST" action="/tickets/{{ $ticket->id }}/update-status">
-                            @csrf
+<option value="">All</option>
 
-                            <div class="d-flex gap-2">
-                                <select name="status" class="form-select form-select-sm">
-                                    @if($ticket->status == 'Open')
-                                        <option value="On Progress">On Progress</option>
-                                    @elseif($ticket->status == 'On Progress')
-                                        <option value="Resolved">Resolved</option>
-                                    @elseif($ticket->status == 'Resolved')
-                                        <option value="Closed">Closed</option>
-                                    @endif
-                                </select>
+@foreach($categories as $category)
 
-                                <input type="text" name="note" placeholder="Note"
-                                       class="form-control form-control-sm">
+<option value="{{ $category->id }}"
+{{ request('category_id') == $category->id ? 'selected' : '' }}>
 
-                                <button type="submit" class="btn btn-sm btn-primary">
-                                    Update
-                                </button>
-                            </div>
-                        </form>
-                        @else
-                            -
-                        @endif
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+{{ $category->name }}
 
-        {{ $tickets->links() }}
+</option>
 
-    </div>
+@endforeach
+
+</select>
 </div>
 
-@endsection
+<div>
+<label class="text-sm font-medium text-gray-700">Date</label>
+<input 
+type="date"
+name="date"
+value="{{ request('date') }}"
+class="w-full border-gray-300 rounded-md shadow-sm">
+</div>
+
+<div class="flex items-end">
+<button 
+type="submit"
+class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">
+Filter
+</button>
+</div>
+
+</form>
+
+<!-- TABLE -->
+
+<div class="w-full overflow-x-auto">
+    <table class="w-full divide-y divide-gray-200">
+<thead class="bg-gray-50">
+
+<tr>
+
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+Title
+</th>
+
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+Category
+</th>
+
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+Status
+</th>
+
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+Created
+</th>
+
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+Action
+</th>
+
+<th>Priority</th>
+
+<th>Ticket No</th>
+</tr>
+
+</thead>
+
+<tbody class="bg-white divide-y divide-gray-200">
+
+@forelse($tickets as $ticket)
+
+<tr>
+
+<td class="px-6 py-4">
+{{ $ticket->title }}
+</td>
+
+<td class="px-6 py-4">
+{{ $ticket->category->name ?? '-' }}
+</td>
+
+<td class="px-6 py-4">
+
+<span class="px-2 py-1 rounded text-xs font-semibold
+@if($ticket->status == 'Open') bg-red-100 text-red-700
+@elseif($ticket->status == 'On Progress') bg-yellow-100 text-yellow-700
+@elseif($ticket->status == 'Resolved') bg-green-100 text-green-700
+@else bg-gray-200 text-gray-700
+@endif
+">
+
+{{ $ticket->status }}
+
+</span>
+
+</td>
+
+<td class="px-6 py-4 text-sm text-gray-500">
+{{ $ticket->created_at->format('d M Y') }}
+</td>
+
+<td class="px-6 py-4">
+
+<a href="{{ route('tickets.show', $ticket->id) }}"
+class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm">
+
+View
+
+</a>
+
+</td>
+
+<td>
+<span class="px-2 py-1 rounded text-xs font-semibold
+@if($ticket->priority == 'High') bg-red-100 text-red-700
+@elseif($ticket->priority == 'Medium') bg-yellow-100 text-yellow-700
+@else bg-green-100 text-green-700
+@endif
+">
+
+{{ $ticket->priority }}
+
+</span>
+</td>
+
+<td>{{ $ticket->ticket_no }}</td>
+</tr>
+
+@empty
+
+<tr>
+<td colspan="5" class="text-center py-6 text-gray-500">
+No tickets found
+</td>
+</tr>
+
+@endforelse
+
+</tbody>
+
+</table>
+
+</div>
+
+<!-- PAGINATION -->
+
+<div class="flex justify-center mt-6">
+{{ $tickets->withQueryString()->links('pagination::tailwind') }}
+</div>
+
+</div>
+
+</div>
+</div>
+
+</x-app-layout>
