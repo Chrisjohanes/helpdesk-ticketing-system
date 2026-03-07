@@ -104,3 +104,37 @@ php artisan serve
 Buka di browser:
 
 http://127.0.0.1:8000
+
+## Screenshot Aplikasi
+
+### Dashboard
+
+![Dashboard](screenshots/User 1.png)
+![Dashboard](screenshots/Admin 1.png)
+
+### Create Ticket
+
+![Create Ticket](screenshots/User 4.png)
+
+### Detail Ticket
+
+![Ticket Detail](screenshots/Admin 2.png)
+![Ticket Detail](screenshots/Admin 3.png)
+![Ticket Detail](screenshots/User 2.png)
+![Ticket Detail](screenshots/User 3.png)
+
+Pengembangan Selanjutnya
+
+Beberapa fitur yang dapat ditambahkan:
+
+Assign IT Support ke tiket
+
+Notifikasi email ketika tiket dibuat atau diperbarui
+
+SLA monitoring tiket
+
+Grafik statistik tiket pada dashboard
+
+Author
+
+Chris Johanes
