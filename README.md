@@ -105,6 +105,20 @@ Buka di browser:
 
 http://127.0.0.1:8000
 
+## Application Preview
+
+### Dashboard
+![Dashboard](screenshots/User 1.png)
+
+### Create Ticket
+![Create Ticket](screenshots/User 4.png)
+
+### Ticket List
+![Ticket List](screenshots/User 2.png)
+
+### Ticket Detail
+![Ticket Detail](screenshots/User 3.png)
+
 Pengembangan Selanjutnya
 
 Beberapa fitur yang dapat ditambahkan:
