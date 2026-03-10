@@ -45,7 +45,6 @@ Menyimpan riwayat perubahan status tiket
 
 Catatan tambahan dari IT Support
 
-Dashboard
 Dashboard IT Support
 
 Menampilkan statistik tiket seperti:
