@@ -40,32 +40,32 @@ class TicketController extends Controller
             ->with('success', 'Ticket created successfully');
     }
 
-    public function index(Request $request)
-    {
-        $query = Ticket::with(['user','category']);
+   public function index(Request $request)
+{
+    $query = Ticket::with(['user','category']);
 
-        // user biasa hanya lihat ticket sendiri
-        if (!auth()->user()->isSupport()) {
-            $query->where('user_id', auth()->id());
-        }
-
-        if ($request->status) {
-            $query->where('status', $request->status);
-        }
-
-        if ($request->category_id) {
-            $query->where('category_id', $request->category_id);
-        }
-
-        if ($request->date) {
-            $query->whereDate('created_at', $request->date);
-        }
-
-        $tickets = $query->latest()->paginate(5);
-        $categories = Category::all();
-
-        return view('tickets.index', compact('tickets','categories'));
+    // jika bukan admin maka hanya lihat ticket sendiri
+    if (auth()->user()->role != 'admin') {
+        $query->where('user_id', auth()->id());
     }
+
+    if ($request->status) {
+        $query->where('status', $request->status);
+    }
+
+    if ($request->category_id) {
+        $query->where('category_id', $request->category_id);
+    }
+
+    if ($request->date) {
+        $query->whereDate('created_at', $request->date);
+    }
+
+    $tickets = $query->latest()->paginate(5);
+    $categories = Category::all();
+
+    return view('tickets.index', compact('tickets','categories'));
+}
 
     public function show($id)
     {
@@ -77,9 +77,9 @@ class TicketController extends Controller
     public function update(Request $request, $id)
     {
         // hanya IT Support yang boleh update
-        if (!auth()->user()->isSupport()) {
-            abort(403);
-        }
+       if (auth()->user()->role != 'admin') {
+    abort(403);
+}
 
         $request->validate([
             'status' => 'required'
@@ -123,7 +123,7 @@ class TicketController extends Controller
     public function dashboard()
     {
         // dashboard IT Support
-        if(auth()->user()->isSupport()){
+        if(auth()->user()->role == 'admin'){
 
             $total = Ticket::count();
             $open = Ticket::where('status','Open')->count();
