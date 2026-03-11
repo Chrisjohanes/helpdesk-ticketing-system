@@ -44,7 +44,7 @@ class TicketController extends Controller
 {
     $query = Ticket::with(['user','category']);
 
-    // user biasa hanya lihat ticket sendiri
+    // user biasa hanya boleh lihat ticket miliknya
     if(auth()->user()->role == 'user'){
         $query->where('user_id', auth()->id());
     }
