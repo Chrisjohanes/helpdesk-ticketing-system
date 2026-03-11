@@ -44,8 +44,8 @@ class TicketController extends Controller
 {
     $query = Ticket::with(['user','category']);
 
-    // jika bukan admin maka hanya lihat ticket sendiri
-    if (auth()->user()->role != 'admin') {
+    // user biasa hanya lihat ticket sendiri
+    if(auth()->user()->role == 'user'){
         $query->where('user_id', auth()->id());
     }
 
@@ -77,7 +77,7 @@ class TicketController extends Controller
     public function update(Request $request, $id)
     {
         // hanya IT Support yang boleh update
-       if (auth()->user()->role != 'admin') {
+       if (auth()->user()->role != 'it_support') {
     abort(403);
 }
 
@@ -123,7 +123,7 @@ class TicketController extends Controller
     public function dashboard()
     {
         // dashboard IT Support
-        if(auth()->user()->role == 'admin'){
+        if(auth()->user()->role == 'it_support'){
 
             $total = Ticket::count();
             $open = Ticket::where('status','Open')->count();
