@@ -1,20 +1,15 @@
-FROM php:8.2-apache
+FROM php:8.2-cli
 
-RUN a2dismod mpm_event
-RUN a2dismod mpm_worker
-RUN a2enmod mpm_prefork
+WORKDIR /app
 
-RUN a2enmod rewrite
+COPY . .
 
+RUN apt-get update && apt-get install -y git unzip
 RUN docker-php-ext-install pdo pdo_mysql
 
-RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+RUN composer install --no-dev --optimize-autoloader
 
-COPY . /var/www/html
+EXPOSE 8000
 
-WORKDIR /var/www/html
-
-RUN chmod -R 775 storage bootstrap/cache
-RUN chown -R www-data:www-data /var/www/html
-
-EXPOSE 80
+CMD php artisan serve --host=0.0.0.0 --port=8000
