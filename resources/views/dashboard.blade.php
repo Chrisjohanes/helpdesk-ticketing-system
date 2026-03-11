@@ -3,7 +3,7 @@
 <div class="py-6">
 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-<h2 class="text-2xl font-bold mb-6">IT Support Dashboard</h2>
+<h2 class="text-2xl font-bold mb-6">Dashboard</h2>
 
 <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
 
