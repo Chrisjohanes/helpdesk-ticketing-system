@@ -6,6 +6,7 @@ COPY . .
 
 RUN apt-get update && apt-get install -y git unzip
 RUN docker-php-ext-install pdo pdo_mysql
+RUN chmod -R 775 storage bootstrap/cache
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN composer install --no-dev --optimize-autoloader
