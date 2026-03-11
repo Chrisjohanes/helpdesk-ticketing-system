@@ -25,4 +25,4 @@ RUN php artisan view:clear
 
 EXPOSE 8000
 
-CMD php artisan migrate --force && php -S 0.0.0.0:8000 -t public
+php artisan migrate --force && php artisan db:seed --force && php -S 0.0.0.0:8000 -t public
