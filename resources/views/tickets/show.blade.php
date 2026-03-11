@@ -26,25 +26,33 @@ Status: {{ $ticket->status }}
 @if(auth()->user()->isSupport())
 
 <form action="{{ route('tickets.updateStatus', $ticket->id) }}" method="POST">
-    @csrf
-    @method('PUT')
+@csrf
+@method('PUT')
 
-    <label>Status</label>
+<label>Status</label>
 
-    <select name="status" class="border rounded p-2">
-        <option value="Open">Open</option>
-        <option value="On Progress">On Progress</option>
-        <option value="Resolved">Resolved</option>
-        <option value="Closed">Closed</option>
-    </select>
+<select name="status" class="border rounded p-2">
 
-    <label class="block mt-2">Note</label>
-    <textarea name="note" class="border rounded w-full"></textarea>
+@if($ticket->status == 'Open')
+<option value="On Progress">On Progress</option>
+@endif
 
-    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded mt-2">
-        Update Status
-    </button>
-</form>
+@if($ticket->status == 'On Progress')
+<option value="Resolved">Resolved</option>
+@endif
+
+@if($ticket->status == 'Resolved')
+<option value="Closed">Closed</option>
+@endif
+
+</select>
+
+<label class="block mt-2">Note</label>
+<textarea name="note" class="border rounded w-full"></textarea>
+
+<button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded mt-2">
+Update Status
+</button>
 
 </form>
 
