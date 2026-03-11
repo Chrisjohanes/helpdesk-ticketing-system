@@ -120,11 +120,15 @@ Action
 @if($ticket->status == 'Open') bg-red-100 text-red-700
 @elseif($ticket->status == 'On Progress') bg-yellow-100 text-yellow-700
 @elseif($ticket->status == 'Resolved') bg-green-100 text-green-700
-@else bg-gray-200 text-gray-700
+@elseif($ticket->status == 'Closed') bg-gray-200 text-gray-700
 @endif
 ">
 
+@if(auth()->user()->role == 'user' && $ticket->status == 'Closed')
+Resolved
+@else
 {{ $ticket->status }}
+@endif
 
 </span>
 
